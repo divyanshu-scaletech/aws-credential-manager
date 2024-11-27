@@ -5,10 +5,12 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
 } from 'typeorm';
 import { Role } from './role.entity';
 
 @Entity()
+@Unique('UQ_User_username', ['username'])
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: UUID;
@@ -23,6 +25,6 @@ export class User {
   is_accepted: boolean;
 
   @ManyToOne(() => Role, { nullable: false })
-  @JoinColumn({ name: 'role_id' })
+  @JoinColumn({ name: 'role_id', foreignKeyConstraintName: 'FK_User_role_id' })
   role: Role;
 }
