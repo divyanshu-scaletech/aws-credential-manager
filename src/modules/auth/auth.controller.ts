@@ -17,6 +17,7 @@ import {
   UserNotAcceptedError,
   UserNotFoundError,
 } from './auth.custom-erros';
+import { AllowUnauthorized } from 'src/decorators/allow-unauthorized.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -27,6 +28,7 @@ export class AuthController {
    * handles errors using `handleErrorsInLogin`.
    * @param loginPayload
    */
+  @AllowUnauthorized()
   @Post('login')
   async login(
     @Body() loginPayload: LoginRequestDto,
@@ -62,6 +64,7 @@ export class AuthController {
    * handles errors using `handleErrorsInRegistration`
    * @param registerPayload
    */
+  @AllowUnauthorized()
   @Post('register')
   async register(
     @Body() registerPayload: RegisterRequestDto,

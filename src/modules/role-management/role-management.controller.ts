@@ -22,7 +22,12 @@ import {
   RoleNotFoundError,
   RolePermissionsCombinationNotExist,
 } from './role-management.custom-errors';
+import { PermissionsNeeded } from 'src/decorators/permissions-needed.decorator';
+import { Permissions } from 'src/constants/enums';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@PermissionsNeeded(Permissions.RoleManagementAll)
+@ApiBearerAuth()
 @Controller('role-management')
 export class RoleManagementController {
   constructor(private readonly roleManagementService: RoleManagementService) {}
@@ -31,6 +36,7 @@ export class RoleManagementController {
    * handles request to create role along with its permissions with help of `RoleManagementService`.
    * @param createRolePayload
    */
+  @PermissionsNeeded()
   @Post('roles')
   async createRole(
     @Body() createRolePayload: CreateRoleRequestDto,
@@ -47,6 +53,7 @@ export class RoleManagementController {
   /**
    * handles the request to list all the available roles along with its permissions with help of `RoleManagementService`.
    */
+  @PermissionsNeeded()
   @Get('roles')
   async listRoles(): Promise<CustomResponse<Role[]>> {
     const roles = await this.roleManagementService.listRoles();
@@ -62,6 +69,7 @@ export class RoleManagementController {
    * @param role_id
    * @param addPermissionsPayload
    */
+  @PermissionsNeeded()
   @Post(':role_id/permissions')
   async addPermissions(
     @Param() roleIdDetails: RoleIdDto,
@@ -99,6 +107,7 @@ export class RoleManagementController {
    * @param role_id
    * @param removePermissionsPayload
    */
+  @PermissionsNeeded()
   @Delete(':role_id/permissions')
   async removePermissions(
     @Param() roleIdDetails: RoleIdDto,

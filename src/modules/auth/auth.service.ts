@@ -7,6 +7,7 @@ import {
   UserNotAcceptedError,
 } from './auth.custom-erros';
 import * as jsonwebtoken from 'jsonwebtoken';
+import { JwtPayload } from 'src/types';
 
 @Injectable()
 export class AuthService {
@@ -43,7 +44,7 @@ export class AuthService {
     const isPasswordCorrect = await bcrypt.compare(password, password_hash);
     if (!isPasswordCorrect) throw new IncorrectPasswordError();
 
-    const jwtPayload = {
+    const jwtPayload: Partial<JwtPayload> = {
       ...userDetails,
       role: {
         ...userDetails.role,

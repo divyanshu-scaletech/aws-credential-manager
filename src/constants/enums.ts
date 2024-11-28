@@ -3,4 +3,5 @@ export enum Permissions {
   ConsoleDelete = 'console.delete',
   ProgrammaticCreate = 'programmatic.create',
   ProgrammaticDelete = 'programmatic.delete',
+  RoleManagementAll = 'role-management.all',
 }
