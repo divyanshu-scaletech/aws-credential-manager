@@ -63,7 +63,12 @@ export class AuthRepository {
    * @param username
    */
   async getUserDetails(username: string): Promise<User> {
-    const user = await this.dataSource.manager.findOneBy(User, { username });
+    const user = await this.dataSource.manager.findOne(User, {
+      where: { username },
+      relations: {
+        role: true,
+      },
+    });
     if (!user) throw new UserNotFoundError();
 
     return user;
