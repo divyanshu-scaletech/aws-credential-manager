@@ -66,7 +66,18 @@ export class AuthRepository {
     const user = await this.dataSource.manager.findOne(User, {
       where: { username },
       relations: {
-        role: true,
+        role: {
+          role_permissions: true,
+        },
+      },
+      select: {
+        role: {
+          id: true,
+          name: true,
+          role_permissions: {
+            permission: true,
+          },
+        },
       },
     });
     if (!user) throw new UserNotFoundError();

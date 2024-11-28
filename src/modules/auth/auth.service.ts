@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { LoginDetails, RegistrationDetails } from './types';
 import { AuthRepository } from './auth.repository';
 import * as bcrypt from 'bcrypt';
-import { IncorrectPasswordError } from './auth.custom-erros';
+import {
+  IncorrectPasswordError,
+  UserNotAcceptedError,
+} from './auth.custom-erros';
 import * as jsonwebtoken from 'jsonwebtoken';
 
 @Injectable()
@@ -27,20 +30,31 @@ export class AuthService {
 
   /**
    * takes user details from `AuthRepository` and verifies the credentials.
-   * throw if credentials are incorrect. otherwise signs a JTW and returns it.
+   * throw if credentials are incorrect or user is not accepted. otherwise signs a JTW and returns it.
    * @param loginDetails
    */
   async login(loginDetails: LoginDetails): Promise<string> {
     const { password, username } = loginDetails;
-    const { password_hash, ...userDetailsWithoutPasswordHash } =
+    const { password_hash, is_accepted, ...userDetails } =
       await this.authRepository.getUserDetails(username);
+
+    if (!is_accepted) throw new UserNotAcceptedError();
 
     const isPasswordCorrect = await bcrypt.compare(password, password_hash);
     if (!isPasswordCorrect) throw new IncorrectPasswordError();
 
-    return jsonwebtoken.sign(
-      userDetailsWithoutPasswordHash,
-      process.env.JWT_SECRET,
-    );
+    const jwtPayload = {
+      ...userDetails,
+      role: {
+        ...userDetails.role,
+        role_permissions: userDetails.role.role_permissions.map(
+          (obj) => obj.permission,
+        ),
+      },
+    };
+
+    return jsonwebtoken.sign(jwtPayload, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRATION_LIMIT,
+    });
   }
 }

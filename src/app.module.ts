@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { entities } from './entities';
 import { AuthModule } from './modules/auth/auth.module';
+import { RoleManagementModule } from './modules/role-management/role-management.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -21,6 +22,7 @@ dotenv.config();
       synchronize: true,
     }),
     AuthModule,
+    RoleManagementModule,
   ],
   controllers: [AppController],
   providers: [AppService],

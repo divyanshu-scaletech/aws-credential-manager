@@ -21,3 +21,9 @@ export class IncorrectPasswordError extends Error {
     super('password is incorrect');
   }
 }
+
+export class UserNotAcceptedError extends Error {
+  constructor() {
+    super('user not accepted yet');
+  }
+}

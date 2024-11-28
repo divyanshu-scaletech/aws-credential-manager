@@ -2,15 +2,15 @@ import { UUID } from 'crypto';
 import {
   Column,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
-  Unique,
 } from 'typeorm';
 import { Role } from './role.entity';
 
 @Entity()
-@Unique('UQ_User_username', ['username'])
+@Index('UQ_User_username', ['username'], { unique: true })
 export class User {
   @PrimaryGeneratedColumn('uuid')
   id: UUID;

@@ -14,6 +14,8 @@ import {
   IncorrectPasswordError,
   RoleNotFoundError,
   UsernameTakenError,
+  UserNotAcceptedError,
+  UserNotFoundError,
 } from './auth.custom-erros';
 
 @Controller('auth')
@@ -44,8 +46,12 @@ export class AuthController {
    * @param err
    */
   private handleErrorsInLogin(err: unknown): never {
-    if (err instanceof IncorrectPasswordError) {
-      throw new UnauthorizedException('Incorrect Credentials');
+    if (
+      err instanceof IncorrectPasswordError ||
+      err instanceof UserNotFoundError ||
+      err instanceof UserNotAcceptedError
+    ) {
+      throw new UnauthorizedException();
     }
 
     throw err;

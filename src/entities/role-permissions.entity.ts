@@ -5,13 +5,22 @@ import { UUID } from 'crypto';
 
 @Entity()
 export class RolePermissions {
-  @PrimaryColumn({ type: 'enum', enum: Permissions })
+  @PrimaryColumn({
+    type: 'enum',
+    enum: Permissions,
+    primaryKeyConstraintName: 'PK_Role_Permissions_permission_id_role_id',
+  })
   permission: Permissions;
 
-  @PrimaryColumn()
+  @PrimaryColumn({
+    primaryKeyConstraintName: 'PK_Role_Permissions_permission_id_role_id',
+  })
   role_id: UUID;
 
   @ManyToOne(() => Role)
-  @JoinColumn({ name: 'role_id' })
+  @JoinColumn({
+    name: 'role_id',
+    foreignKeyConstraintName: 'FK_Role_Permissions_role_id',
+  })
   role: Role;
 }
