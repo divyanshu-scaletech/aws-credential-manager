@@ -38,6 +38,7 @@ export class ListLogsRequestDto {
   @IsOptional()
   user_agent?: string;
 
+  @Transform(({ value }) => (value ? +value : value))
   @IsNumber()
   @IsOptional()
   response_status_code?: number;
