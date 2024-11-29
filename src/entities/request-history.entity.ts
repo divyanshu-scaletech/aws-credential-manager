@@ -10,7 +10,7 @@ import {
 import { User } from './user.entity';
 
 @Entity()
-export class RequestHistory {
+export class RequestResponseHistory {
   @PrimaryGeneratedColumn('uuid')
   id: UUID;
 
@@ -26,10 +26,16 @@ export class RequestHistory {
   @Column()
   user_agent: string;
 
-  @CreateDateColumn()
-  created_at: Date;
+  @Column({ type: 'integer', nullable: true })
+  response_status_code: number | null;
 
-  @ManyToOne(() => User, { nullable: false })
+  @Column({ type: 'bigint', nullable: true })
+  time_taken: number | null;
+
+  @CreateDateColumn()
+  request_time: Date;
+
+  @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
-  user: User;
+  user: User | null;
 }

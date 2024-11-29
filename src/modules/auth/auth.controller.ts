@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  HttpCode,
   NotAcceptableException,
   NotFoundException,
   Post,
@@ -30,6 +31,7 @@ export class AuthController {
    */
   @AllowUnauthorized()
   @Post('login')
+  @HttpCode(200)
   async login(
     @Body() loginPayload: LoginRequestDto,
   ): Promise<CustomResponse<LoginResponseDto>> {

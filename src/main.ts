@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as dotenv from 'dotenv';
 import { ValidationPipe } from '@nestjs/common';
-import { TransformInterceptor } from './interceptors/transform.incerceptor';
+import { TransformInterceptor } from './interceptors/transform.interceptor';
 import { PermissionGuard } from './guards/permission.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
@@ -28,6 +28,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
 
-  await app.listen(process.env.PORT);
+  await app.listen(process.env.PORT ?? 5000);
 }
 bootstrap();

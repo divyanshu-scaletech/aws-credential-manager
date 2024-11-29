@@ -5,6 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { Request } from 'express';
 import * as jwt from 'jsonwebtoken';
 
 /**
@@ -23,15 +24,17 @@ export class JwtAuthGuard implements CanActivate {
 
     const request = context.switchToHttp().getRequest();
     const token = this.getTokenFromHeader(request);
-    const user = jwt.verify(token, process.env.JWT_SECRET);
+    const user = jwt.verify(token, process.env.JWT_SECRET!);
 
     if (user) {
       request.user = user;
       return true;
     }
+
+    return false;
   }
 
-  getTokenFromHeader(request) {
+  getTokenFromHeader(request: Request) {
     const token = request.headers['authorization'];
     if (token?.startsWith('Bearer ')) {
       return token.slice(7);

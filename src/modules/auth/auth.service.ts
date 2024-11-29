@@ -54,7 +54,7 @@ export class AuthService {
       },
     };
 
-    return jsonwebtoken.sign(jwtPayload, process.env.JWT_SECRET, {
+    return jsonwebtoken.sign(jwtPayload, process.env.JWT_SECRET!, {
       expiresIn: process.env.JWT_EXPIRATION_LIMIT,
     });
   }
