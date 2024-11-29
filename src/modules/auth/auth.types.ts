@@ -10,9 +10,3 @@ export type LoginDetails = {
   username: string;
   password: string;
 };
-
-export type CustomResponse<T = undefined> = {
-  is_error?: boolean;
-  message?: string;
-  data?: T;
-};

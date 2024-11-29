@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, EntityManager, In, QueryFailedError } from 'typeorm';
-import { CreateRoleDetails, PermissionsChangeDetails } from './types';
+import {
+  CreateRoleDetails,
+  PermissionsChangeDetails,
+} from './role-management.types';
 import { Role } from 'src/entities/role.entity';
 import { RolePermissions } from 'src/entities/role-permissions.entity';
 import {

@@ -33,7 +33,7 @@ export class RequestResponseHistory {
   time_taken: number | null;
 
   @CreateDateColumn()
-  request_time: Date;
+  request_arrival_time: Date;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })

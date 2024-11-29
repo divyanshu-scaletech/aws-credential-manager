@@ -7,6 +7,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { RoleManagementModule } from './modules/role-management/role-management.module';
 import * as dotenv from 'dotenv';
 import { LoggingMiddleware } from './middlewares/logging.middleware';
+import { AuditModule } from './modules/audit/audit.module';
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ dotenv.config();
     }),
     AuthModule,
     RoleManagementModule,
+    AuditModule,
   ],
   controllers: [AppController],
   providers: [AppService],

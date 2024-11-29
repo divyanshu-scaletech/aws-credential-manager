@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { LoginDetails, RegistrationDetails } from './types';
+import { LoginDetails, RegistrationDetails } from './auth.types';
 import { AuthRepository } from './auth.repository';
 import * as bcrypt from 'bcrypt';
 import {

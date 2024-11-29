@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, QueryFailedError } from 'typeorm';
 import { User } from 'src/entities/user.entity';
-import { RegistrationDetails } from './types';
+import { RegistrationDetails } from './auth.types';
 import {
   RoleNotFoundError,
   UsernameTakenError,

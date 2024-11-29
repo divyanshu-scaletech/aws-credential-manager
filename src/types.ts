@@ -11,3 +11,9 @@ export type JwtPayload = Omit<
   iat: number;
   exp: number;
 };
+
+export type CustomResponse<T = undefined> = {
+  is_error?: boolean;
+  message?: string;
+  data?: T;
+};

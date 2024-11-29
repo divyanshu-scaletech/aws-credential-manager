@@ -8,7 +8,6 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { LoginRequestDto, RegisterRequestDto } from './dto/request.dto';
-import { CustomResponse } from './types';
 import { LoginResponseDto } from './dto/response.dto';
 import { AuthService } from './auth.service';
 import {
@@ -19,6 +18,7 @@ import {
   UserNotFoundError,
 } from './auth.custom-erros';
 import { AllowUnauthorized } from 'src/decorators/allow-unauthorized.decorator';
+import { CustomResponse } from 'src/types';
 
 @Controller('auth')
 export class AuthController {

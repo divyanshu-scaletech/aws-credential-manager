@@ -8,7 +8,6 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { CustomResponse } from '../auth/types';
 import {
   AddPermissionsRequestDto,
   CreateRoleRequestDto,
@@ -25,6 +24,7 @@ import {
 import { PermissionsNeeded } from 'src/decorators/permissions-needed.decorator';
 import { Permissions } from 'src/constants/enums';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { CustomResponse } from 'src/types';
 
 @PermissionsNeeded(Permissions.RoleManagementAll)
 @ApiBearerAuth()

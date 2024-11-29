@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Role } from 'src/entities/role.entity';
-import { PermissionsChangeDetails, CreateRoleDetails } from './types';
+import { PermissionsChangeDetails, CreateRoleDetails } from './role-management.types';
 import { RoleManagementRepository } from './role-management.repository';
 
 @Injectable()
