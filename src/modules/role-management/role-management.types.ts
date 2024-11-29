@@ -1,5 +1,5 @@
 import { UUID } from 'crypto';
-import { Permissions } from 'src/constants/enums';
+import { Permissions } from '../../constants/enums';
 
 export type PermissionsChangeDetails = {
   role_id: UUID;

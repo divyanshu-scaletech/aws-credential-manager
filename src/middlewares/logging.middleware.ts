@@ -1,7 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { JwtPayload } from 'jsonwebtoken';
-import { RequestResponseHistory } from 'src/entities/request-history.entity';
+import { RequestResponseHistory } from '../entities/request-history.entity';
 import { DataSource } from 'typeorm';
 
 @Injectable()

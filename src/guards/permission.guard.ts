@@ -1,8 +1,8 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Request } from 'express';
-import { JwtPayload } from 'src/types';
-import { Permissions } from 'src/constants/enums';
+import { JwtPayload } from '../types';
+import { Permissions } from '../constants/enums';
 
 /**
  *

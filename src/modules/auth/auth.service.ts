@@ -7,7 +7,7 @@ import {
   UserNotAcceptedError,
 } from './auth.custom-erros';
 import * as jsonwebtoken from 'jsonwebtoken';
-import { JwtPayload } from 'src/types';
+import { JwtPayload } from '../../types';
 
 @Injectable()
 export class AuthService {

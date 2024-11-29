@@ -4,8 +4,8 @@ import {
   CreateRoleDetails,
   PermissionsChangeDetails,
 } from './role-management.types';
-import { Role } from 'src/entities/role.entity';
-import { RolePermissions } from 'src/entities/role-permissions.entity';
+import { Role } from '../../entities/role.entity';
+import { RolePermissions } from '../../entities/role-permissions.entity';
 import {
   PermissionAlreadyPresentError,
   RoleNotFoundError,

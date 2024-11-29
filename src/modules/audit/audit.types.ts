@@ -1,5 +1,5 @@
 import { UUID } from 'crypto';
-import { ListLogsOrderBy, OrderByDirection } from 'src/constants/enums';
+import { ListLogsOrderBy, OrderByDirection } from '../../constants/enums';
 
 type OrderByDetails = {
   order_by: ListLogsOrderBy;

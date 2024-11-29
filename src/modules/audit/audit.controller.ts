@@ -1,10 +1,10 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ListLogsRequestDto } from './dto/request.dto';
-import { CustomResponse } from 'src/types';
+import { CustomResponse } from '../../types';
 import { AuditService } from './audit.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { PermissionsNeeded } from 'src/decorators/permissions-needed.decorator';
-import { Permissions } from 'src/constants/enums';
+import { PermissionsNeeded } from '../../decorators/permissions-needed.decorator';
+import { Permissions } from '../../constants/enums';
 import { plainToInstance } from 'class-transformer';
 import { ListLogsResponseDto } from './dto/response.dto';
 

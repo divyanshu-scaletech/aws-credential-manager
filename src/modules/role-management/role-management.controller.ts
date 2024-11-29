@@ -15,16 +15,16 @@ import {
   RoleIdDto,
 } from './dto/request.dto';
 import { RoleManagementService } from './role-management.service';
-import { Role } from 'src/entities/role.entity';
+import { Role } from '../../entities/role.entity';
 import {
   PermissionAlreadyPresentError,
   RoleNotFoundError,
   RolePermissionsCombinationNotExist,
 } from './role-management.custom-errors';
-import { PermissionsNeeded } from 'src/decorators/permissions-needed.decorator';
-import { Permissions } from 'src/constants/enums';
+import { PermissionsNeeded } from '../../decorators/permissions-needed.decorator';
+import { Permissions } from '../../constants/enums';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { CustomResponse } from 'src/types';
+import { CustomResponse } from '../../types';
 
 @PermissionsNeeded(Permissions.RoleManagementAll)
 @ApiBearerAuth()

@@ -7,7 +7,7 @@ import {
   IsUUID,
 } from 'class-validator';
 import { UUID } from 'crypto';
-import { Permissions } from 'src/constants/enums';
+import { Permissions } from '../../../constants/enums';
 
 export class AddPermissionsRequestDto {
   @ArrayNotEmpty()

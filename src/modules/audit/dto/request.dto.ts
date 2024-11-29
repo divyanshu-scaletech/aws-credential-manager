@@ -10,7 +10,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { UUID } from 'crypto';
-import { ListLogsOrderBy, OrderByDirection } from 'src/constants/enums';
+import { ListLogsOrderBy, OrderByDirection } from '../../../constants/enums';
 
 class ListLogsOrderByDto {
   @IsEnum(ListLogsOrderBy)

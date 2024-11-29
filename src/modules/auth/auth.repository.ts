@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, QueryFailedError } from 'typeorm';
-import { User } from 'src/entities/user.entity';
+import { User } from '../../entities/user.entity';
 import { RegistrationDetails } from './auth.types';
 import {
   RoleNotFoundError,

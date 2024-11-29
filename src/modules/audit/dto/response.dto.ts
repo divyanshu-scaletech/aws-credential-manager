@@ -1,7 +1,7 @@
 import { IntersectionType } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { RequestResponseHistory } from 'src/entities/request-history.entity';
-import { User } from 'src/entities/user.entity';
+import { RequestResponseHistory } from '../../../entities/request-history.entity';
+import { User } from '../../../entities/user.entity';
 
 class ListLogsOverride {
   user: {

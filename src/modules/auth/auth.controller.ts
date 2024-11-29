@@ -17,8 +17,8 @@ import {
   UserNotAcceptedError,
   UserNotFoundError,
 } from './auth.custom-erros';
-import { AllowUnauthorized } from 'src/decorators/allow-unauthorized.decorator';
-import { CustomResponse } from 'src/types';
+import { AllowUnauthorized } from '../../decorators/allow-unauthorized.decorator';
+import { CustomResponse } from '../../types';
 
 @Controller('auth')
 export class AuthController {

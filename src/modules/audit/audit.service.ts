@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AuditRepository } from './audit.repository';
 import { ListLogsDetails } from './audit.types';
-import { RequestResponseHistory } from 'src/entities/request-history.entity';
+import { RequestResponseHistory } from '../../entities/request-history.entity';
 
 @Injectable()
 export class AuditService {

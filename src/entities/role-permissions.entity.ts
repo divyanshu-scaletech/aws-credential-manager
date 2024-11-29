@@ -1,4 +1,4 @@
-import { Permissions } from 'src/constants/enums';
+import { Permissions } from '../constants/enums';
 import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Role } from './role.entity';
 import { UUID } from 'crypto';
