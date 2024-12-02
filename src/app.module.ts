@@ -8,11 +8,14 @@ import { RoleManagementModule } from './modules/role-management/role-management.
 import * as dotenv from 'dotenv';
 import { LoggingMiddleware } from './middlewares/logging.middleware';
 import { AuditModule } from './modules/audit/audit.module';
+import { AwsModule } from './modules/aws/aws.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 dotenv.config();
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DATABASE_HOST,
@@ -26,6 +29,7 @@ dotenv.config();
     AuthModule,
     RoleManagementModule,
     AuditModule,
+    AwsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
