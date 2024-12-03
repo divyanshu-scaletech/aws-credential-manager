@@ -9,6 +9,7 @@ import * as dotenv from 'dotenv';
 import { LoggingMiddleware } from './middlewares/logging.middleware';
 import { AuditModule } from './modules/audit/audit.module';
 import { AwsModule } from './modules/aws/aws.module';
+import { CronModule } from './modules/cron/cron.module';
 import { ScheduleModule } from '@nestjs/schedule';
 
 dotenv.config();
@@ -30,6 +31,7 @@ dotenv.config();
     RoleManagementModule,
     AuditModule,
     AwsModule,
+    CronModule,
   ],
   controllers: [AppController],
   providers: [AppService],

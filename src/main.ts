@@ -6,6 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { TransformInterceptor } from './interceptors/transform.interceptor';
 import { PermissionGuard } from './guards/permission.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { AwsIamExceptionFilter } from './exception-filters/aws-iam.exception.filter';
 
 async function bootstrap() {
   dotenv.config();
@@ -18,6 +19,7 @@ async function bootstrap() {
   );
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalInterceptors(new TransformInterceptor());
+  app.useGlobalFilters(new AwsIamExceptionFilter());
 
   const config = new DocumentBuilder()
     .setTitle('AWS Credential Manager')

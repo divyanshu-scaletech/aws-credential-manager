@@ -9,14 +9,11 @@ export class IamUser {
   @Column()
   username: string;
 
-  @Column({ type: 'timestamp without time zone', nullable: true })
-  expiration_time: Date | null;
+  @Column({ type: 'timestamp with time zone' })
+  expiration_time: Date;
 
   @Column({ default: false })
   has_login_profile: boolean;
-
-  @Column({ default: false })
-  has_access_key: boolean;
 
   @Column({ type: 'character varying', nullable: true })
   policy_name: string | null;

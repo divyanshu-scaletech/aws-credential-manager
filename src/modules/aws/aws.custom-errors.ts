@@ -3,3 +3,9 @@ export class CannotAssignActionError extends Error {
     super('provided action is not allowed');
   }
 }
+
+export class IamUserNotFoundError extends Error {
+  constructor() {
+    super('Iam User not found');
+  }
+}

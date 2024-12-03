@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UUID } from 'crypto';
 import { IamUser } from 'src/entities/iam-user.entity';
 import { DataSource } from 'typeorm';
+import { IamUserNotFoundError } from './aws.custom-errors';
 
 @Injectable()
 export class AwsRepository {
@@ -14,12 +15,14 @@ export class AwsRepository {
    */
   async saveUsername(
     iam_username: string,
+    expiration_time: Date,
     callback: () => Promise<void>,
   ): Promise<UUID> {
     return await this.dataSource.transaction(
       async (transactionalEntityManager) => {
         const insertResult = await transactionalEntityManager.insert(IamUser, {
           username: iam_username,
+          expiration_time,
         });
 
         const iamUserId = insertResult.identifiers[0].id;
@@ -36,7 +39,7 @@ export class AwsRepository {
    * @param policy_name
    * @param callback
    */
-  async updatePolicyName(
+  async updatePolicyAndExpiration(
     id: UUID,
     policy_name: string,
     callback: () => Promise<void>,
@@ -66,6 +69,79 @@ export class AwsRepository {
           { id },
           { has_login_profile: true },
         );
+        await callback();
+      },
+    );
+  }
+
+  /**
+   * filter all rows from `IamUser` and gives only those rows with data of user that should be deleted.
+   */
+  async getUsersDataToBeDeleted(): Promise<IamUser[]> {
+    return await this.dataSource.manager
+      .createQueryBuilder(IamUser, 'iam_user')
+      .where('iam_user.expiration_time < NOW()')
+      .getMany();
+  }
+
+  /**
+   * get data of `IamUser` with provided `username`. throws if no user was found.
+   * @param username
+   */
+  async getUserDataFromUsername(username: string): Promise<IamUser> {
+    const iamUser = await this.dataSource.manager.findOneBy(IamUser, {
+      username,
+    });
+
+    if (!iamUser) throw new IamUserNotFoundError();
+    return iamUser;
+  }
+
+  /**
+   * update `IamUser` to make `has_login_profile` false and execute the provided callback in a transaction.
+   * @param id
+   * @param callback
+   */
+  async makeLoginProfileFlagFalse(id: UUID, callback: () => Promise<void>) {
+    return await this.dataSource.transaction(
+      async (transactionalEntityManager) => {
+        await transactionalEntityManager.update(
+          IamUser,
+          { id },
+          { has_login_profile: false },
+        );
+        await callback();
+      },
+    );
+  }
+
+  /**
+   * update `IamUser` to make `policy_name` null and execute the provided callback in a transaction.
+   * @param id
+   * @param callback
+   */
+  async removePolicyName(id: UUID, callback: () => Promise<void>) {
+    return await this.dataSource.transaction(
+      async (transactionalEntityManager) => {
+        await transactionalEntityManager.update(
+          IamUser,
+          { id },
+          { policy_name: null },
+        );
+        await callback();
+      },
+    );
+  }
+
+  /**
+   * delete `IamUser` with provided id and execute the provided callback in a transaction.
+   * @param id
+   * @param callback
+   */
+  async deleteIamUser(id: UUID, callback: () => Promise<void>) {
+    return await this.dataSource.transaction(
+      async (transactionalEntityManager) => {
+        await transactionalEntityManager.delete(IamUser, { id });
         await callback();
       },
     );
