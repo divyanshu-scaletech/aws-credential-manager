@@ -7,6 +7,7 @@ import {
   UsernameTakenError,
   UserNotFoundError,
 } from './auth.custom-erros';
+import { UUID } from 'crypto';
 
 @Injectable()
 export class AuthRepository {
@@ -97,5 +98,20 @@ export class AuthRepository {
         },
       },
     });
+  }
+
+  /**
+   * updates `User` and set `is_accepted` to be true.
+   * throws if user with provided it is not found
+   * @param user_ids
+   */
+  async approveRegistrationRequests(user_id: UUID) {
+    const updateResult = await this.dataSource.manager.update(
+      User,
+      { id: user_id },
+      { is_accepted: true },
+    );
+
+    if (updateResult.affected === 0) throw new UserNotFoundError();
   }
 }

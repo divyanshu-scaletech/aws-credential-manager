@@ -35,3 +35,11 @@ export class RegisterRequestDto {
   @IsUUID()
   role_id: UUID;
 }
+
+export class ApproveRegistrationRequestDto {
+  /**
+   * @example af77bf4a-bf05-4d82-8887-a8bfb78f87d3
+   */
+  @IsUUID('all')
+  user_id: UUID;
+}

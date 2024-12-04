@@ -8,6 +8,7 @@ import {
 } from './auth.custom-erros';
 import * as jsonwebtoken from 'jsonwebtoken';
 import { JwtPayload } from '../../types';
+import { UUID } from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -64,5 +65,13 @@ export class AuthService {
    */
   async getRegistrationRequests() {
     return await this.authRepository.getNotAcceptedRequests();
+  }
+
+  /**
+   * passes `user_id` to `AuthRepository`.
+   * @param user_ids
+   */
+  async approveRegistrationRequests(user_id: UUID) {
+    await this.authRepository.approveRegistrationRequests(user_id);
   }
 }

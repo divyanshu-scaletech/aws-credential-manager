@@ -5,10 +5,16 @@ import {
   HttpCode,
   NotAcceptableException,
   NotFoundException,
+  Param,
   Post,
+  Put,
   UnauthorizedException,
 } from '@nestjs/common';
-import { LoginRequestDto, RegisterRequestDto } from './dto/request.dto';
+import {
+  ApproveRegistrationRequestDto,
+  LoginRequestDto,
+  RegisterRequestDto,
+} from './dto/request.dto';
 import {
   LoginResponseDto,
   NotAcceptedUserResponseDto,
@@ -118,5 +124,36 @@ export class AuthController {
     return {
       data,
     };
+  }
+
+  /**
+   * handles request to accept registration requests
+   * @param approveRegistrationRequestPayload
+   */
+  @PermissionsNeeded(Permissions.Admin)
+  @Put(':user_id/approve-registration-request')
+  async approveRegistrationRequest(
+    @Param() approveRegistrationRequestPayload: ApproveRegistrationRequestDto,
+  ): Promise<CustomResponse> {
+    const { user_id } = approveRegistrationRequestPayload;
+    await this.authService
+      .approveRegistrationRequests(user_id)
+      .catch(this.handleErrorsInApproveRegistration);
+
+    return {
+      message: 'Permission Accepted',
+    };
+  }
+
+  /**
+   * handles errors that might occur during approving registration request.
+   * @param err
+   */
+  handleErrorsInApproveRegistration(err: unknown): never {
+    if (err instanceof UserNotFoundError) {
+      throw new NotFoundException(err.message);
+    }
+
+    throw err;
   }
 }
