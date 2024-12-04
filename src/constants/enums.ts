@@ -5,6 +5,7 @@ export enum Permissions {
   ProgrammaticDelete = 'programmatic.delete',
   RoleManagementAll = 'role-management.all',
   AuditLogsAll = 'audit-logs.all',
+  Admin = 'admin',
 }
 
 export enum ListLogsOrderBy {

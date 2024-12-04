@@ -58,4 +58,11 @@ export class AuthService {
       expiresIn: process.env.JWT_EXPIRATION_LIMIT,
     });
   }
+
+  /**
+   * gets data from `AuthRepository` and returns it
+   */
+  async getRegistrationRequests() {
+    return await this.authRepository.getNotAcceptedRequests();
+  }
 }

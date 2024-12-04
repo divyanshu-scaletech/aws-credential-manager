@@ -26,7 +26,13 @@ dotenv.config();
       database: process.env.DATABASE_NAME,
       entities: entities,
       synchronize: true,
+      extra: {
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
     }),
+
     AuthModule,
     RoleManagementModule,
     AuditModule,

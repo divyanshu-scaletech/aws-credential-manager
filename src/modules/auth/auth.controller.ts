@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   NotAcceptableException,
   NotFoundException,
@@ -8,7 +9,10 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { LoginRequestDto, RegisterRequestDto } from './dto/request.dto';
-import { LoginResponseDto } from './dto/response.dto';
+import {
+  LoginResponseDto,
+  NotAcceptedUserResponseDto,
+} from './dto/response.dto';
 import { AuthService } from './auth.service';
 import {
   IncorrectPasswordError,
@@ -19,7 +23,13 @@ import {
 } from './auth.custom-erros';
 import { AllowUnauthorized } from '../../decorators/allow-unauthorized.decorator';
 import { CustomResponse } from '../../types';
+import { PermissionsNeeded } from 'src/decorators/permissions-needed.decorator';
+import { Permissions } from 'src/constants/enums';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { plainToInstance } from 'class-transformer';
 
+@PermissionsNeeded()
+@ApiBearerAuth()
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -92,5 +102,21 @@ export class AuthController {
     }
 
     throw err;
+  }
+
+  /**
+   * list all the request for new registration
+   */
+  @PermissionsNeeded(Permissions.Admin)
+  @Get('registration-requests')
+  async getRegistrationRequests() {
+    const data = plainToInstance(
+      NotAcceptedUserResponseDto,
+      await this.authService.getRegistrationRequests(),
+    );
+
+    return {
+      data,
+    };
   }
 }

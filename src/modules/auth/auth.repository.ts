@@ -84,4 +84,18 @@ export class AuthRepository {
 
     return user;
   }
+
+  /**
+   * gets all user with `is_accepted` as false
+   */
+  async getNotAcceptedRequests() {
+    return await this.dataSource.manager.find(User, {
+      where: { is_accepted: false },
+      relations: {
+        role: {
+          role_permissions: true,
+        },
+      },
+    });
+  }
 }
