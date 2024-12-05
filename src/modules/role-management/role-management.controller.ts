@@ -25,6 +25,7 @@ import { PermissionsNeeded } from '../../decorators/permissions-needed.decorator
 import { Permissions } from '../../constants/enums';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { CustomResponse } from '../../types';
+import { AllowUnauthorized } from 'src/decorators/allow-unauthorized.decorator';
 
 @PermissionsNeeded(Permissions.RoleManagementAll)
 @ApiBearerAuth()
@@ -53,7 +54,7 @@ export class RoleManagementController {
   /**
    * handles the request to list all the available roles along with its permissions with help of `RoleManagementService`.
    */
-  @PermissionsNeeded()
+  @AllowUnauthorized()
   @Get('roles')
   async listRoles(): Promise<CustomResponse<Role[]>> {
     const roles = await this.roleManagementService.listRoles();
