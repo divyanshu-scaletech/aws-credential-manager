@@ -4,7 +4,7 @@ import { entities } from './entities';
 
 dotenv.config();
 
-export const migrationFolder = '**/migrations/**/*.{ts,js}';
+export const migrationFolder = '../../migrations/**/*.{ts,js}';
 
 export default new DataSource({
   type: 'postgres',
