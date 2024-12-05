@@ -17,7 +17,7 @@ export class RolePermissions {
   })
   role_id: UUID;
 
-  @ManyToOne(() => Role)
+  @ManyToOne(() => Role, { nullable: false })
   @JoinColumn({
     name: 'role_id',
     foreignKeyConstraintName: 'FK_Role_Permissions_role_id',

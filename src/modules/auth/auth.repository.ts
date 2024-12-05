@@ -8,6 +8,9 @@ import {
   UserNotFoundError,
 } from './auth.custom-erros';
 import { UUID } from 'crypto';
+import { ReplacePropertyType } from '../../types';
+import { Role } from '../../entities/role.entity';
+import { RolePermissions } from '../../entities/role-permissions.entity';
 
 @Injectable()
 export class AuthRepository {
@@ -89,7 +92,17 @@ export class AuthRepository {
   /**
    * gets all user with `is_accepted` as false
    */
-  async getNotAcceptedRequests() {
+  async getNotAcceptedRequests(): Promise<
+    ReplacePropertyType<
+      User,
+      'role',
+      ReplacePropertyType<
+        Role,
+        'role_permissions',
+        Omit<RolePermissions, 'role'>[]
+      >
+    >[]
+  > {
     return await this.dataSource.manager.find(User, {
       where: { is_accepted: false },
       relations: {

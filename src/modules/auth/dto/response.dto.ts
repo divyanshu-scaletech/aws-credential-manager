@@ -1,6 +1,6 @@
 import { OmitType } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { User } from 'src/entities/user.entity';
+import { User } from '../../../entities/user.entity';
 
 export class LoginResponseDto {
   jwt: string;

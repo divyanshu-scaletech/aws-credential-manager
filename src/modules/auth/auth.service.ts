@@ -24,7 +24,7 @@ export class AuthService {
 
     const password_hash = await bcrypt.hash(password, 10);
 
-    return await this.authRepository.saveUserDetails({
+    await this.authRepository.saveUserDetails({
       password_hash,
       ...registrationDetailsWithoutPassword,
     });

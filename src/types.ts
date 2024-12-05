@@ -17,3 +17,9 @@ export type CustomResponse<T = undefined> = {
   message?: string;
   data?: T;
 };
+
+export type ReplacePropertyType<
+  Obj extends object & Record<PropertyKey, unknown>,
+  PropertyKey extends string,
+  ReplaceWith,
+> = Omit<Obj, PropertyKey> & Record<PropertyKey, ReplaceWith>;

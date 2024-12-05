@@ -29,8 +29,8 @@ import {
 } from './auth.custom-erros';
 import { AllowUnauthorized } from '../../decorators/allow-unauthorized.decorator';
 import { CustomResponse } from '../../types';
-import { PermissionsNeeded } from 'src/decorators/permissions-needed.decorator';
-import { Permissions } from 'src/constants/enums';
+import { PermissionsNeeded } from '../../decorators/permissions-needed.decorator';
+import { Permissions } from '../../constants/enums';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { plainToInstance } from 'class-transformer';
 
@@ -149,7 +149,7 @@ export class AuthController {
    * handles errors that might occur during approving registration request.
    * @param err
    */
-  handleErrorsInApproveRegistration(err: unknown): never {
+  private handleErrorsInApproveRegistration(err: unknown): never {
     if (err instanceof UserNotFoundError) {
       throw new NotFoundException(err.message);
     }
