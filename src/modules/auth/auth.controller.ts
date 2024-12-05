@@ -92,7 +92,7 @@ export class AuthController {
       .catch(this.handleErrorsInRegistration);
 
     return {
-      message: 'User Registered Successfully',
+      message: 'Registration request sent successfully',
     };
   }
 

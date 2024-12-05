@@ -194,7 +194,7 @@ export class AwsService {
         Action: actions,
         Resource: resources,
         Condition: {
-          DateGreaterThanEquals: {
+          DateLessThan: {
             'aws:TokenIssueTime': expiration_time,
           },
         },
