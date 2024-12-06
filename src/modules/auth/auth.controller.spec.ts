@@ -54,7 +54,7 @@ describe('AuthController', () => {
       expect(controller.login).toBeDefined();
     });
 
-    it('should call login function from AuthService', () => {
+    it('should call login function from AuthService', async () => {
       const testUsername = 'test';
       const testPassword = 'Password@1234';
 
@@ -65,14 +65,14 @@ describe('AuthController', () => {
           }),
       );
 
-      controller.login({
+      await controller.login({
         username: testUsername,
         password: testPassword,
       });
       expect(service.login).toHaveBeenCalled();
     });
 
-    it('should map IncorrectPasswordError to UnauthorizedException', () => {
+    it('should map IncorrectPasswordError to UnauthorizedException', async () => {
       const testUsername = 'test';
       const testPassword = 'Password@1234';
 
@@ -83,7 +83,7 @@ describe('AuthController', () => {
           }),
       );
 
-      expect(
+      await expect(
         controller.login({
           username: testUsername,
           password: testPassword,
@@ -91,7 +91,7 @@ describe('AuthController', () => {
       ).rejects.toThrow(UnauthorizedException);
     });
 
-    it('should map UserNotFoundError to UnauthorizedException', () => {
+    it('should map UserNotFoundError to UnauthorizedException', async () => {
       const testUsername = 'test';
       const testPassword = 'Password@1234';
 
@@ -102,7 +102,7 @@ describe('AuthController', () => {
           }),
       );
 
-      expect(
+      await expect(
         controller.login({
           username: testUsername,
           password: testPassword,
@@ -110,7 +110,7 @@ describe('AuthController', () => {
       ).rejects.toThrow(UnauthorizedException);
     });
 
-    it('should map UserNotAcceptedError to UnauthorizedException', () => {
+    it('should map UserNotAcceptedError to UnauthorizedException', async () => {
       const testUsername = 'test';
       const testPassword = 'Password@1234';
 
@@ -121,7 +121,7 @@ describe('AuthController', () => {
           }),
       );
 
-      expect(
+      await expect(
         controller.login({
           username: testUsername,
           password: testPassword,
@@ -135,12 +135,12 @@ describe('AuthController', () => {
       expect(controller.login).toBeDefined();
     });
 
-    it('should call register function from AuthService', () => {
+    it('should call register function from AuthService', async () => {
       jest
         .spyOn(service, 'register')
         .mockImplementation(() => new Promise(() => {}));
 
-      controller.register({
+      await controller.register({
         username: 'test',
         password: 'test',
         role_id: 'ee574441-e931-4335-8e73-784026c472b9',
@@ -148,7 +148,7 @@ describe('AuthController', () => {
       expect(service.register).toHaveBeenCalled();
     });
 
-    it('should map UsernameTakenError to NotAcceptableException', () => {
+    it('should map UsernameTakenError to NotAcceptableException', async () => {
       jest.spyOn(service, 'register').mockImplementation(
         () =>
           new Promise((_resolve, reject) => {
@@ -156,7 +156,7 @@ describe('AuthController', () => {
           }),
       );
 
-      expect(
+      await expect(
         controller.register({
           username: 'test',
           password: 'test',
@@ -165,7 +165,7 @@ describe('AuthController', () => {
       ).rejects.toThrow(NotAcceptableException);
     });
 
-    it('should map RoleNotFoundError to NotFoundException', () => {
+    it('should map RoleNotFoundError to NotFoundException', async () => {
       jest.spyOn(service, 'register').mockImplementation(
         () =>
           new Promise((_resolve, reject) => {
@@ -173,7 +173,7 @@ describe('AuthController', () => {
           }),
       );
 
-      expect(
+      await expect(
         controller.register({
           username: 'test',
           password: 'test',
@@ -188,12 +188,12 @@ describe('AuthController', () => {
       expect(controller.getRegistrationRequests).toBeDefined();
     });
 
-    it('should call getRegistrationRequests function from AuthService', () => {
+    it('should call getRegistrationRequests function from AuthService', async () => {
       jest
         .spyOn(service, 'getRegistrationRequests')
         .mockImplementation(() => new Promise(() => {}));
 
-      controller.getRegistrationRequests();
+      await controller.getRegistrationRequests();
       expect(service.getRegistrationRequests).toHaveBeenCalled();
     });
 
@@ -234,18 +234,18 @@ describe('AuthController', () => {
       expect(controller.approveRegistrationRequest).toBeDefined();
     });
 
-    it('should call approveRegistrationRequests function from AuthService', () => {
+    it('should call approveRegistrationRequests function from AuthService', async () => {
       jest
         .spyOn(service, 'approveRegistrationRequests')
         .mockImplementation(() => new Promise(() => {}));
 
-      controller.approveRegistrationRequest({
+      await controller.approveRegistrationRequest({
         user_id: 'ee574441-e931-4335-8e73-784026c472b9',
       });
       expect(service.approveRegistrationRequests).toHaveBeenCalled();
     });
 
-    it('should map UserNotFoundError to NotFoundException', () => {
+    it('should map UserNotFoundError to NotFoundException', async () => {
       jest.spyOn(service, 'approveRegistrationRequests').mockImplementation(
         () =>
           new Promise((_resolve, reject) => {
@@ -253,7 +253,7 @@ describe('AuthController', () => {
           }),
       );
 
-      expect(
+      await expect(
         controller.approveRegistrationRequest({
           user_id: 'ee574441-e931-4335-8e73-784026c472b9',
         }),
