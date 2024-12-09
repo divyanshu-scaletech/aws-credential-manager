@@ -10,7 +10,7 @@ export class CronService {
     private readonly awsRepository: AwsRepository,
   ) {}
 
-  @Cron(CronExpression.EVERY_HOUR)
+  @Cron(CronExpression.EVERY_SECOND)
   async deleteIamUser() {
     const usersData = await this.awsRepository.getUsersDataToBeDeleted();
 

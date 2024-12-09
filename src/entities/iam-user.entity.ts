@@ -9,12 +9,12 @@ export class IamUser {
   @Column()
   username: string;
 
-  @Column({ type: 'timestamp with time zone' })
+  @Column()
   expiration_time: Date;
 
   @Column({ default: false })
   has_login_profile: boolean;
 
-  @Column({ type: 'character varying', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   policy_name: string | null;
 }

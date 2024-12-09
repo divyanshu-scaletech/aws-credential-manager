@@ -6,7 +6,7 @@ import { UUID } from 'crypto';
 @Entity()
 export class RolePermissions {
   @PrimaryColumn({
-    type: 'enum',
+    type: 'simple-enum',
     enum: Permissions,
     primaryKeyConstraintName: 'PK_Role_Permissions_permission_id_role_id',
   })
