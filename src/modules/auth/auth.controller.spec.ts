@@ -136,9 +136,12 @@ describe('AuthController', () => {
     });
 
     it('should call register function from AuthService', async () => {
-      jest
-        .spyOn(service, 'register')
-        .mockImplementation(() => new Promise(() => {}));
+      jest.spyOn(service, 'register').mockImplementation(
+        () =>
+          new Promise((resolve) => {
+            resolve();
+          }),
+      );
 
       await controller.register({
         username: 'test',
@@ -189,9 +192,25 @@ describe('AuthController', () => {
     });
 
     it('should call getRegistrationRequests function from AuthService', async () => {
-      jest
-        .spyOn(service, 'getRegistrationRequests')
-        .mockImplementation(() => new Promise(() => {}));
+      jest.spyOn(service, 'getRegistrationRequests').mockImplementation(
+        () =>
+          new Promise((resolve) => {
+            resolve([
+              {
+                id: 'de4f93f2-996f-4c02-a83b-acc0f236035c',
+                username: 'steve12345',
+                password_hash:
+                  '$2b$10$/5n5IGQd1m3bwEVxB962b.3y.Kpb5okvf3pYmWURj8qJkaWiuUDy.',
+                is_accepted: false,
+                role: {
+                  id: '7b05dae6-3d2e-4e6c-a348-29d80bf43a6d',
+                  name: 'console-all',
+                  role_permissions: [],
+                },
+              },
+            ]);
+          }),
+      );
 
       await controller.getRegistrationRequests();
       expect(service.getRegistrationRequests).toHaveBeenCalled();
@@ -235,9 +254,12 @@ describe('AuthController', () => {
     });
 
     it('should call approveRegistrationRequests function from AuthService', async () => {
-      jest
-        .spyOn(service, 'approveRegistrationRequests')
-        .mockImplementation(() => new Promise(() => {}));
+      jest.spyOn(service, 'approveRegistrationRequests').mockImplementation(
+        () =>
+          new Promise((resolve) => {
+            resolve();
+          }),
+      );
 
       await controller.approveRegistrationRequest({
         user_id: 'ee574441-e931-4335-8e73-784026c472b9',
